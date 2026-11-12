@@ -54,7 +54,7 @@ PayPilot AI turns natural-language shopping intents into auditable, policy-check
 4. **Comparison & Decision:** Products are compared deterministically on `Decimal` pricing and specifications, enriched with AI qualitative notes, and ranked against user preferences.
 5. **Security Validation:** The Security Agent evaluates spending limits (per-transaction, daily, and monthly caps) and merchant risk posture.
 6. **Explicit User Approval:** The workflow pauses at `AWAITING_USER_APPROVAL`. No PayPal order or charge can occur unless the user explicitly confirms the purchase.
-7. **PayPal Checkout & Capture:** Upon user approval, the backend creates a PayPal Orders API v2 order, redirects or opens PayPal approval, and captures payment only after PayPal reports `APPROVED` status.
+7. **PayPal Sandbox Checkout & Capture:** Upon explicit user approval, the backend creates a PayPal Orders API v2 order, presents PayPal Sandbox approval, and captures payment only after PayPal confirms authorization. (Demonstrated with verified PayPal Sandbox captures; no live real-money settlement or physical merchant fulfillment is claimed.)
 8. **Ledger & Audit Persistence:** Orders, transactions, fee breakdowns, webhook events, and agent execution traces are recorded in PostgreSQL.
 
 ---
@@ -208,63 +208,55 @@ Verified directly against [`backend/requirements.txt`](backend/requirements.txt)
 
 ```text
 PayPilot-AI/
-├── .env.example
-├── .gitignore
-├── LICENSE                         # Empty placeholder (license not yet specified)
-├── README.md
+├── .gitignore                      # Git exclusion rules for credentials, build artifacts, venv
+├── LICENSE                         # MIT License
+├── README.md                       # Architecture, setup guide, API & security documentation
 ├── backend/
-│   ├── .env.example
-│   ├── Dockerfile
-│   ├── alembic.ini
-│   ├── requirements.txt
+│   ├── .env.example                # Backend environment variable template (sanitized)
+│   ├── Dockerfile                  # Production container specification
+│   ├── alembic.ini                 # Database migration configuration
+│   ├── requirements.txt            # Python dependencies
 │   ├── alembic/
-│   │   └── versions/
-│   │       └── 0001_initial_schema.py
+│   │   └── versions/               # Production PostgreSQL database migrations
+│   │       ├── 0001_initial_schema.py
+│   │       └── 0002_production_indexes_and_constraints.py
 │   ├── app/
-│   │   ├── main.py                 # FastAPI app, middleware, health checks, exception handlers
-│   │   ├── agents/                 # Orchestrator + 7 specialized agents
-│   │   ├── api/routes/             # auth, agents, commerce, products, payments, transactions, webhooks
-│   │   ├── core/                   # config, database, logging (redaction), security
+│   │   ├── main.py                 # FastAPI application, middleware, lifecycle
+│   │   ├── agents/                 # Orchestrator + 7 specialized AI agents
+│   │   ├── api/routes/             # Auth, agents, commerce, products, payments, transactions, webhooks
+│   │   ├── core/                   # Config, database, logging (redaction), security
 │   │   ├── integrations/
-│   │   │   ├── paypal/             # client, orders, capture, webhooks, schemas
-│   │   │   └── products/           # channel3, provider abstraction
-│   │   ├── llm/                    # nemotron, mistral, groq, router, prompts/
-│   │   ├── models/                 # SQLAlchemy models (10 database tables)
-│   │   ├── schemas/                # Pydantic request/response schemas
-│   │   ├── services/               # auth, audit, commerce, payment, product, transaction services
-│   │   └── utils/                  # currency, helpers, validators
-│   └── tests/                      # conftest, test_agents, test_commerce, test_payments, test_webhooks
-├── database/
-│   ├── migrations/
-│   └── seed/
-│       └── products.json           # Empty placeholder file (0 bytes)
+│   │   │   ├── paypal/             # PayPal Orders v2 client, capture, webhooks, schemas
+│   │   │   └── products/           # Channel3 integration & provider abstraction
+│   │   ├── llm/                    # NVIDIA Nemotron, Mistral, Groq, router, prompts
+│   │   ├── models/                 # SQLAlchemy ORM models (10 tables)
+│   │   ├── schemas/                # Pydantic validation schemas
+│   │   ├── services/               # Auth, audit, commerce, payment, product, transaction services
+│   │   └── utils/                  # Currency, helpers, validators
+│   └── tests/                      # Conftest, unit, and integration test suites
 ├── docs/
-│   ├── agent-workflow.md           # Empty placeholder file
-│   ├── api-reference.md            # Empty placeholder file
-│   ├── architecture.md             # Empty placeholder file
-│   ├── demo-script.md              # Hackathon live demo guide & backup plan
-│   └── paypal-integration.md       # Empty placeholder file
+│   ├── assets/
+│   │   └── logo.jpg                # PayPilot AI brand logo
+│   ├── demo-script.md              # Hackathon live demo guide & offline backup plan
+│   └── screenshots/                # Real desktop application screenshots
 └── frontend/
-    ├── .env.example
-    ├── index.html
-    ├── package.json
-    ├── postcss.config.js
-    ├── tailwind.config.js
-    ├── vite.config.js
-    ├── public/
+    ├── .env.example                # Frontend environment variable template (sanitized)
+    ├── Dockerfile                  # Multi-stage Nginx container specification
+    ├── index.html                  # HTML entrypoint
+    ├── package.json                # Frontend dependencies & scripts
+    ├── vite.config.js              # Vite bundler configuration
+    ├── public/                     # Static icons & branding assets
     └── src/
-        ├── App.jsx
-        ├── main.jsx
-        ├── app/                    # App.jsx, providers.jsx, routes.jsx
-        ├── components/             # agents/, animations/, chat/, commerce/, layout/, payments/, ui/
-        ├── context/                # AuthContext
-        ├── hooks/                  # React Query & auth hooks
-        ├── pages/                  # Landing, Login, Register, Dashboard, AICommandCenter, Checkout, etc.
-        ├── services/               # Axios client + resource API wrappers
-        ├── store/                  # Zustand app & theme store
-        ├── styles/
-        ├── test/                   # Vitest + Testing Library suite (app.test.jsx)
-        └── utils/
+        ├── App.jsx                 # Application root
+        ├── app/                    # Providers and route definitions
+        ├── components/             # Layout, chat, commerce, payments, UI components
+        ├── context/                # Authentication & commerce context
+        ├── hooks/                  # React Query & payment hooks
+        ├── pages/                  # Dashboard, Discovery, Compare, Checkout, Ledger, etc.
+        ├── services/               # API clients and service abstractions
+        ├── store/                  # Zustand state management
+        ├── styles/                 # Tailwind CSS styles & animations
+        └── test/                   # Vitest unit & integration test suites
 ```
 
 ---
@@ -582,5 +574,5 @@ See [`docs/demo-script.md`](docs/demo-script.md) for the step-by-step live demon
 
 ## License and Contribution
 
-- **License:** A `LICENSE` file exists at the repository root; review before commercial redistribution.
+- **License:** Released under the [MIT License](LICENSE). The full `LICENSE` file is already included at the repository root.
 - **Contributing:** Issues and pull requests improving test coverage, multi-agent prompts, or documentation are welcome—never commit `.env` files, API keys, or PayPal credentials.
