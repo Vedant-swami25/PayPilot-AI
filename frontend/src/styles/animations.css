@@ -1,0 +1,43 @@
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.08) 25%,
+    rgba(139, 92, 246, 0.14) 50%,
+    rgba(148, 163, 184, 0.08) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+.animate-check-draw {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: check-draw 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+
+[data-tab-inactive="true"] *,
+[data-tab-inactive="true"] {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-skeleton {
+    animation: none !important;
+  }
+}
+

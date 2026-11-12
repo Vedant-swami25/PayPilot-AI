@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 40" fill="none">
+  <rect x="2" y="2" width="36" height="36" rx="9" fill="#101828" />
+  <path d="M12.5 11.5H21.5C25.1 11.5 27.5 13.7 27.5 16.9C27.5 18.2 27 19.3 26.1 20.1L23.6 17.9C23.9 17.6 24.1 17.2 24.1 16.8C24.1 15.4 23 14.6 21.2 14.6H16V28.5H12.5V11.5Z" fill="#FFFFFF" />
+  <path d="M17.5 19.8H24.6L22.5 17.7L24.5 15.7L29.8 21L24.5 26.3L22.5 24.3L24.6 22.2H17.5V19.8Z" fill="#16A36A" />
+  <text x="48" y="25.5" fill="#101828" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" letter-spacing="-0.02em">PayPilot</text>
+  <rect x="122" y="13" width="24" height="15" rx="4" fill="#16A36A" fill-opacity="0.12" />
+  <text x="128" y="23.5" fill="#16A36A" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="600" letter-spacing="0.04em">AI</text>
+</svg>
