@@ -11,7 +11,11 @@
     <a href="https://build.nvidia.com"><img src="https://img.shields.io/badge/Primary_AI-NVIDIA_Nemotron-76B900?logo=nvidia&logoColor=white" alt="NVIDIA Nemotron" /></a>
     <a href="https://developer.paypal.com"><img src="https://img.shields.io/badge/Payments-PayPal_Orders_v2-00457C?logo=paypal&logoColor=white" alt="PayPal Orders v2" /></a>
     <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /></a>
+    <a href="https://youtu.be/Dx5dyTVvzFo"><img src="https://img.shields.io/badge/Demo_Video-YouTube-FF0000?logo=youtube&logoColor=white" alt="Demo Video" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+  </p>
+  <p>
+    🎬 <strong><a href="https://youtu.be/Dx5dyTVvzFo">Watch Video Demo & Hackathon Presentation</a></strong>
   </p>
 </div>
 
@@ -38,7 +42,7 @@ PayPilot AI is a multi-agent autonomous commerce platform powered by FastAPI, Re
 - [Running Tests](#running-tests)
 - [Production Deployment & Operations](#production-deployment--operations)
 - [External Integrations and Limitations](#external-integrations-and-limitations)
-- [Live Demonstration & Demo Script](#live-demonstration--demo-script)
+- [Live Demonstration & Video Presentation](#live-demonstration--video-presentation)
 - [Future Improvements](#future-improvements)
 - [License and Contribution](#license-and-contribution)
 
@@ -555,9 +559,13 @@ docker build \
 
 ---
 
-## Live Demonstration & Demo Script
+## Live Demonstration & Video Presentation
 
-See [`docs/demo-script.md`](docs/demo-script.md) for the step-by-step live demonstration workflow, Sandbox prerequisites, and offline backup plan. For high-resolution visual previews of each workflow stage, refer to the [Application Screenshots](#application-screenshots) section above.
+[![PayPilot AI Video Demonstration](https://img.youtube.com/vi/Dx5dyTVvzFo/maxresdefault.jpg)](https://youtu.be/Dx5dyTVvzFo)
+
+- 📺 **YouTube Video Walkthrough:** [https://youtu.be/Dx5dyTVvzFo](https://youtu.be/Dx5dyTVvzFo) — End-to-end hackathon demonstration covering natural-language shopping, 7-agent pipeline execution, security policy verification, PayPal Sandbox Smart Buttons checkout, and instant ledger capture reconciliation.
+- 📋 **Demo Guide & Script:** See [`docs/demo-script.md`](docs/demo-script.md) for the structured step-by-step presentation script, Sandbox prerequisites, and offline contingency plan.
+- 📸 **Visual Screenshots:** For high-resolution desktop previews of every workflow stage, refer to the [Application Screenshots](#application-screenshots) section above.
 
 ---
 
