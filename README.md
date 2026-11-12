@@ -1,16 +1,21 @@
-# PayPilot AI
+<div align="center">
+  <img src="docs/assets/logo.jpg" alt="PayPilot AI Logo" width="120" style="border-radius: 20px;" />
+  <h1>PayPilot AI</h1>
+  <p><strong>Autonomous AI Commerce Agent with Deterministic Risk Controls & PayPal Orders v2</strong></p>
 
-**Autonomous AI Commerce Agent**
+  <p>
+    <a href="https://fastapi.tiangolo.com"><img src="https://img.shields.io/badge/FastAPI-0.115%2B-009688?logo=fastapi&logoColor=white" alt="FastAPI" /></a>
+    <a href="https://react.dev"><img src="https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=black" alt="React" /></a>
+    <a href="https://vitejs.dev"><img src="https://img.shields.io/badge/Vite-Frontend-646CFF?logo=vite&logoColor=white" alt="Vite" /></a>
+    <a href="https://www.postgresql.org"><img src="https://img.shields.io/badge/PostgreSQL-SQLAlchemy_2.x-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL" /></a>
+    <a href="https://build.nvidia.com"><img src="https://img.shields.io/badge/Primary_AI-NVIDIA_Nemotron-76B900?logo=nvidia&logoColor=white" alt="NVIDIA Nemotron" /></a>
+    <a href="https://developer.paypal.com"><img src="https://img.shields.io/badge/Payments-PayPal_Orders_v2-00457C?logo=paypal&logoColor=white" alt="PayPal Orders v2" /></a>
+    <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+  </p>
+</div>
 
 PayPilot AI is a multi-agent autonomous commerce platform powered by FastAPI, React, PostgreSQL, NVIDIA Nemotron, Mistral, Groq, and PayPal Orders API v2. Users describe what they want to buy in natural language, specialized AI agents discover and compare real catalog options against user spending policies, and checkout executes **only after explicit human approval** via PayPal.
-
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688?logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-Frontend-646CFF?logo=vite&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-SQLAlchemy_2.x-4169E1?logo=postgresql&logoColor=white)
-![NVIDIA Nemotron](https://img.shields.io/badge/Primary_AI-NVIDIA_Nemotron-76B900?logo=nvidia&logoColor=white)
-![PayPal Orders v2](https://img.shields.io/badge/Payments-PayPal_Orders_v2-00457C?logo=paypal&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)
 
 > **Project Status:** Production-hardened FastAPI backend, seven-agent orchestrator, PayPal Orders v2 payment workflow (including capture reconciliation and refunds), Alembic-managed Neon PostgreSQL schema (`0002_production_indexes`), and React/Vite frontend. Live external APIs (NVIDIA Nemotron, Mistral, Groq, Channel3 v1, Neon PostgreSQL, and PayPal Sandbox) require valid credentials in `backend/.env` and `frontend/.env`; switching to PayPal Live additionally requires setting `APP_ENV=production`, HTTPS origins, non-sandbox `PAYPAL_BASE_URL`, and live PayPal REST/Webhook credentials.
 
@@ -20,6 +25,7 @@ PayPilot AI is a multi-agent autonomous commerce platform powered by FastAPI, Re
 
 - [Overview](#overview)
 - [Key Features](#key-features)
+- [Application Screenshots](#application-screenshots)
 - [System Architecture](#system-architecture)
 - [Technology Stack](#technology-stack)
 - [Repository Structure](#repository-structure)
@@ -30,8 +36,9 @@ PayPilot AI is a multi-agent autonomous commerce platform powered by FastAPI, Re
 - [Payment Workflow](#payment-workflow)
 - [Security](#security)
 - [Running Tests](#running-tests)
+- [Production Deployment & Operations](#production-deployment--operations)
 - [External Integrations and Limitations](#external-integrations-and-limitations)
-- [Screenshots / Demo](#screenshots--demo)
+- [Live Demonstration & Demo Script](#live-demonstration--demo-script)
 - [Future Improvements](#future-improvements)
 - [License and Contribution](#license-and-contribution)
 
@@ -70,6 +77,48 @@ PayPilot AI turns natural-language shopping intents into auditable, policy-check
 - Live product search via Channel3 (`CHANNEL3_API_KEY`).
 - Live PostgreSQL persistence via `DATABASE_URL` and Alembic migrations.
 - Live PayPal Sandbox checkout approval, payment capture, and signed webhook delivery (`PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`, `PAYPAL_WEBHOOK_ID`, `VITE_PAYPAL_CLIENT_ID`).
+
+---
+
+## Application Screenshots
+
+> High-resolution desktop previews captured directly from the live PayPilot AI application running in dark mode with real merchant inventory and verified PayPal Sandbox capture.
+
+### 1. Financial Overview & Real-Time Dashboard
+Real-time tracking of single-transaction caps, daily/monthly spending limits, aggregated settlement metrics, and recent activity ledger.
+![Financial Overview & Dashboard](docs/screenshots/dashboard.png)
+
+### 2. Product Discovery & Multi-Currency Engine
+Real-time catalog search via Channel3 v1 API with dynamic multi-currency price conversion (USD to INR/EUR/GBP) using live exchange rates.
+![Product Discovery](docs/screenshots/product-discovery.png)
+
+### 3. Verified Product Details & Currency Conversion
+Item-level breakdown showing original merchant price, live converted currency display, exchange-rate attribution, and checkout initiation.
+![Product Details](docs/screenshots/product-details.png)
+
+### 4. Side-by-Side Product Comparison Matrix
+Deterministic price and feature comparison engine evaluating candidate products side-by-side against active budget caps.
+![Product Comparison](docs/screenshots/product-comparison.png)
+
+### 5. Multi-Agent AI Shopping Assistant
+Natural-language conversational interface orchestrating the 7-agent pipeline (Lead, Discovery, Comparison, Decision, Security, Payment, Monitoring) with step-by-step progress tracking.
+![AI Command Center](docs/screenshots/recommendations.png)
+
+### 6. Security Policy Validation & Purchase Approval Gate
+Server-side policy enforcement verifying transaction caps and merchant safety posture before checkout order creation. Requires explicit human consent (`confirm_purchase=true`).
+![Security Validation & Purchase Approval](docs/screenshots/purchase-approval.png)
+
+### 7. PayPal Orders v2 Embedded Checkout
+Native dark fintech checkout container rendering PayPal Smart Payment Buttons, server-verified order amounts, and direct PayPal approval fallback.
+![PayPal Orders v2 Checkout](docs/screenshots/paypal-checkout.png)
+
+### 8. Cryptographically Verified Payment Confirmation
+Confirmed payment receipt displaying the backend-reconciled PayPal Order ID (`6KE41442R6154352U`), verified capture state, merchant attribution, and audit timestamp.
+![Successful Payment Confirmation](docs/screenshots/payment-confirmation.png)
+
+### 9. Transaction Ledger & Compliance Audit
+Comprehensive audit trail recording all user-authorized PayPal captures, pending intents, failure reasons, and CSV export capabilities.
+![Transaction Ledger](docs/screenshots/transaction-ledger.png)
 
 ---
 
@@ -514,9 +563,9 @@ docker build \
 
 ---
 
-## Screenshots / Demo
+## Live Demonstration & Demo Script
 
-See [`docs/demo-script.md`](docs/demo-script.md) for the step-by-step live demonstration workflow, Sandbox prerequisites, and offline backup plan.
+See [`docs/demo-script.md`](docs/demo-script.md) for the step-by-step live demonstration workflow, Sandbox prerequisites, and offline backup plan. For high-resolution visual previews of each workflow stage, refer to the [Application Screenshots](#application-screenshots) section above.
 
 ---
 
